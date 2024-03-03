@@ -39,7 +39,7 @@ array_appliance = [
 
 df_app = spark.createDataFrame(data=array_appliance, schema=['Name','Applience'])
 df_app.printSchema()
-display(df_app)
+df_app.show()
 
 
 map_brand = [
@@ -51,7 +51,7 @@ map_brand = [
 
 df_brand = spark.createDataFrame(data=map_brand,schema=['Name','Brand'])
 df_brand.printSchema()
-display(df_brand)
+df_brand.show()
 
 
 '''1) explode -- when array is passed
@@ -65,11 +65,11 @@ from pyspark.sql.functions import explode
 
 df1 = df_app.select(df_app.Name, explode(df_app.Applience))
 df1.printSchema()
-display(df1)
+df1.show()
 
 
 df_app.printSchema()
-display(df_app)
+df_app.show()
 
 
 
@@ -82,11 +82,11 @@ if the array or map is null that row is eliminated.'''
 from pyspark.sql.functions import explode
 
 df2= df_brand.select(df_brand.Name, explode(df_brand.Brand))
-display(df2)
+df2.show()
 df2.printSchema()
 
 df_brand.printSchema()
-display(df_brand)
+df_brand.show()
 
 
 
@@ -96,9 +96,9 @@ unlike explode, if the array or map is null explode outer return null'''
 from pyspark.sql.functions import explode_outer
 
 
-display(df_app.select(df_app.Name,explode_outer(df_app.Applience)))
+(df_app.select(df_app.Name,explode_outer(df_app.Applience))).show()
 
-display(df_brand.select(df_brand.Name, explode_outer(df_brand.Brand)))
+(df_brand.select(df_brand.Name, explode_outer(df_brand.Brand))).show()
 
 
 '''
@@ -108,9 +108,9 @@ when array or map is passed it creates positional columnn also for each element 
 
 from pyspark.sql.functions import posexplode
 
-display(df_app.select(df_app.Name,posexplode(df_app.Applience)))
+(df_app.select(df_app.Name,posexplode(df_app.Applience))).show()
 
-display(df_brand.select(df_brand.Name, posexplode(df_brand.Brand)))
+(df_brand.select(df_brand.Name, posexplode(df_brand.Brand))).show()
 
 
 '''
@@ -120,9 +120,9 @@ unlike posexplode, if the array or map is null explode_outer return null
 
 from pyspark.sql.functions import posexplode_outer
 
-display(df_app.select(df_app.Name,posexplode_outer(df_app.Applience)))
+(df_app.select(df_app.Name,posexplode_outer(df_app.Applience))).show()
 
-display(df_brand.select(df_brand.name, posexplode_outer(df_brand.Brand)))
+(df_brand.select(df_brand.name, posexplode_outer(df_brand.Brand))).show()
 
 
 
